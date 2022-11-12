@@ -1,5 +1,4 @@
 from api.filters import TitleFilter
-from api.permissions import IsAdminOrReadOnly
 from django.core.mail import send_mail
 from django.db.models import Avg
 from django.shortcuts import get_object_or_404
@@ -156,8 +155,7 @@ class ReviewViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         title = get_object_or_404(Title, id=self.kwargs.get('title_id'))
-        new_queryset = Review.objects.filter(title=title.id)
-        return new_queryset
+        return Review.objects.filter(title=title.id)
 
     def perform_create(self, serializer):
         title = get_object_or_404(Title, id=self.kwargs.get('title_id'))
@@ -171,8 +169,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         review = get_object_or_404(Review, id=self.kwargs.get('review_id'))
-        new_queryset = Comment.objects.filter(review=review.id)
-        return new_queryset
+        return Comment.objects.filter(review=review.id)
 
     def perform_create(self, serializer):
         review = get_object_or_404(Review, id=self.kwargs.get('review_id'))
