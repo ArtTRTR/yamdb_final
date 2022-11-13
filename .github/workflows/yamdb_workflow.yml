@@ -43,7 +43,7 @@ jobs:
           with:
             context: ./api_yamdb
             push: true
-            tags: arttrtr/api_yamdb_web:latest
+            tags: arttrtr/api_yamdb_web:v1
 
   deploy:
       runs-on: ubuntu-latest
