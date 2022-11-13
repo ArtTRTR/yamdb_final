@@ -33,7 +33,7 @@ jobs:
           uses: actions/checkout@v2
         - name: Set up Docker Buildx
           uses: docker/setup-buildx-action@v1 
-        - name: Login to Docker 
+        - name: Login to Docker
           uses: docker/login-action@v1 
           with:
             username: ${{ secrets.DOCKER_USERNAME }} 
@@ -43,7 +43,7 @@ jobs:
           with:
             context: ./api_yamdb
             push: true
-            tags: arttrtr/api_yamdb_web:latest
+            tags: arttrtr/api_yamdb_web:v1
 
   deploy:
       runs-on: ubuntu-latest
@@ -58,7 +58,8 @@ jobs:
             passphrase: ${{ secrets.PASSPHRASE }}
             script: |
               sudo docker compose stop
-              sudo docker compose rm web
+              sudo docker compose rm -f web
+              docker compose pull
               rm -f .env
               touch .env
               echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
